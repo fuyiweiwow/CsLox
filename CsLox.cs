@@ -8,8 +8,7 @@ namespace CsLox
         {
             if(args.Length > 1)
             {
-                Console.WriteLine("Usage: CsLox [script]");
-
+                Console.WriteLine("Usage: CsLox [script]")
             }
 
             if(args.Length == 1)

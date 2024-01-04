@@ -1,0 +1,13 @@
+.vscode/launch.json
+.vscode/tasks.json
+obj/CsLox.csproj.nuget.dgspec.json
+obj/CsLox.csproj.nuget.g.props
+obj/CsLox.csproj.nuget.g.targets
+obj/project.assets.json
+obj/project.nuget.cache
+obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+obj/Debug/net8.0/CsLox.AssemblyInfo.cs
+obj/Debug/net8.0/CsLox.AssemblyInfoInputs.cache
+obj/Debug/net8.0/CsLox.assets.cache
+obj/Debug/net8.0/CsLox.GeneratedMSBuildEditorConfig.editorconfig
+obj/Debug/net8.0/CsLox.GlobalUsings.g.cs
