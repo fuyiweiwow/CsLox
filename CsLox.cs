@@ -5,8 +5,6 @@ namespace CsLox
 {
     public class CsLox
     {
-        static bool _hadError = false;
-
         public static void Main(string[] args)
         {
             if(args.Length > 1)
@@ -32,7 +30,7 @@ namespace CsLox
         {
             byte[] bytes = File.ReadAllBytes(Path.GetFullPath(path));
             Run(Encoding.Default.GetString(bytes));
-            if (_hadError) 
+            if (CsLoxController.Instance.HasError) 
             {
                 Environment.Exit(65);
             }
@@ -50,7 +48,7 @@ namespace CsLox
                 if(line is null)
                     break;
                 Run(line);
-                _hadError = false;
+                CsLoxController.Instance.HasError = false;
             }
         }
 
@@ -68,30 +66,6 @@ namespace CsLox
                 Console.WriteLine(token);
             }
         }
-
-        /// <summary>
-        /// Raise an error
-        /// </summary>
-        /// <param name="line">Line number of source</param>
-        /// <param name="message">Exact message</param>
-        public static void Error(int line, string message)
-        {
-            Report(line, "", message);
-        }
-
-        /// <summary>
-        /// Error message concat
-        /// </summary>
-        /// <param name="line">Line number of source</param>
-        /// <param name="where"></param>
-        /// <param name="message">Exact message</param>
-        private static void Report(int line, string where, string message)
-        {
-            Console.Error.WriteLine($@"line ""{line}"" Error{where}: {message}");
-            _hadError = true;
-        }
-
-
 
 
 

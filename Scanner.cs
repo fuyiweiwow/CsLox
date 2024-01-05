@@ -24,7 +24,7 @@ namespace CsLox
         {
             if(!TokenExtensions.CharTokenMap.TryGetValue(token, out TokenType value))
             {
-                CsLox.Error( _line, $"Unexpected character '{token}'.");
+                CsLoxController.Instance.Error( _line, $"Unexpected character '{token}'.");
                 return;
             }
 
