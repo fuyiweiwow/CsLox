@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace CsLox
 {
@@ -8,26 +9,54 @@ namespace CsLox
         {
             if(args.Length > 1)
             {
-                Console.WriteLine("Usage: CsLox [script]")
+                Console.WriteLine("Usage: CsLox [script]");
+                Environment.Exit(64);
             }
 
             if(args.Length == 1)
             {
-                //run File
                 RunFile(args[0]);
                 return;
             }
 
-            //run prompt
-
-
+            RunPrompt();
         }
 
+        /// <summary>
+        /// read a file and run it
+        /// </summary>
+        /// <param name="path">source file path</param>
         private static void RunFile(string path)
         {
-            var bytes = 
+            byte[] bytes = File.ReadAllBytes(Path.GetFullPath(path));
+            Run(Encoding.Default.GetString(bytes));
         }
 
+        /// <summary>
+        /// run with console
+        /// </summary>
+        private static void RunPrompt()
+        {
+            while(true)
+            {
+                Console.Write(">>");
+                string? line = Console.ReadLine();
+                if(line is null)
+                    break;
+                Run(line);
+            }
+        }
+
+        private static void Run(string source)
+        {
+            var scanner = new Scanner(source);
+            List<Token> tokens = scanner.ScanTokens();
+
+            foreach(var token in tokens)
+            {
+                Console.WriteLine(token);
+            }
+        }
 
     }
 }
