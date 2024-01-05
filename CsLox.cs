@@ -74,7 +74,7 @@ namespace CsLox
         /// </summary>
         /// <param name="line">Line number of source</param>
         /// <param name="message">Exact message</param>
-        private static void Error(int line, string message)
+        public static void Error(int line, string message)
         {
             Report(line, "", message);
         }
