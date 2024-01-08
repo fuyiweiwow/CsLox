@@ -2,6 +2,8 @@ namespace CsLox
 {
     public enum TokenType
     {
+        Undefined,
+        Useless,
         //Single character
         LeftParen = 0,  //'('
         RightParen,     //')'
@@ -48,25 +50,6 @@ namespace CsLox
         While,
         EOF
     }
-
-    public static class TokenExtensions
-    {
-        public static Dictionary<char, TokenType> CharTokenMap { get; set; } = new()
-        {
-            {'(', TokenType.LeftParen},
-            {')', TokenType.RightParen},
-            {'{', TokenType.LeftBrace},
-            {'}', TokenType.RightBrace},
-            {',', TokenType.Comma},
-            {'.', TokenType.Dot},
-            {'_', TokenType.Minus},
-            {'+', TokenType.Plus},
-            {';', TokenType.SemiColon},
-            {'*', TokenType.Star},
-        };
-    }
-
-    
 
 
 }
