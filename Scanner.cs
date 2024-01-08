@@ -101,6 +101,11 @@ namespace CsLox
                         ScanNumber();
                         return;
                     }
+                    else if(IsAlaph(token))
+                    {
+                        ScanIdentifier();
+                        return;
+                    }
                     else
                     {
                         CsLoxController.Instance.Error( _line, $"Unexpected character '{token}'.");
@@ -116,7 +121,36 @@ namespace CsLox
         }
 
         /// <summary>
-        /// Do scane number like 1.234, exclude things like .1234 or 1234.
+        /// Do scan an legal identifier
+        /// </summary>
+        private void ScanIdentifier()
+        {
+            while(IsAlaphOrDigit(Peek()))
+            {
+                Advance();
+            }
+
+            AddToken(TokenType.Identifier);
+        }
+
+        private bool IsAlaphOrDigit(char c)
+        {
+            return char.IsDigit(c) || IsAlaph(c);
+        }
+
+
+        /// <summary>
+        /// Check whether a token is a legallly none keyword
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private bool IsAlaph(char c)
+        {
+            return char.IsLetter(c) || c == '_'; 
+        }
+
+        /// <summary>
+        /// Do scan a number like 1.234, exclude things like .1234 or 1234.
         /// </summary>
         private void ScanNumber()
         {
@@ -141,7 +175,7 @@ namespace CsLox
         }
 
         /// <summary>
-        /// Do scan string start and end with '"'
+        /// Do scan a string starts and ends with '"'
         /// </summary>
         private void ScanString()
         {
@@ -166,6 +200,10 @@ namespace CsLox
             AddToken(TokenType.String, strVal);
         }
 
+        /// <summary>
+        /// Get next character (if it exists)
+        /// </summary>
+        /// <returns></returns>
         private char PeekNext()
         {
             if(_current == _source.Length - 1)
@@ -176,6 +214,10 @@ namespace CsLox
             return _source[_current + 1];
         }
 
+        /// <summary>
+        /// Get current character
+        /// </summary>
+        /// <returns></returns>
         private char Peek()
         {
             if(IsAtEnd())
@@ -188,7 +230,7 @@ namespace CsLox
 
 
         /// <summary>
-        /// check token with two characters
+        /// Check token with two characters
         /// </summary>
         /// <param name="next"></param>
         /// <returns></returns>
@@ -208,6 +250,10 @@ namespace CsLox
             return true;
         }
 
+        /// <summary>
+        /// Move cursor in character array
+        /// </summary>
+        /// <returns></returns>
         private char Advance()
         {
             return _source[_current++];
