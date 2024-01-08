@@ -7,6 +7,25 @@ namespace CsLox
         int _start = 0;
         int _current = 0;
         int _line = 1;
+        private static Dictionary<string, TokenType> _keywordMap = new()
+        {
+            {"and", TokenType.And},
+            {"or", TokenType.Or},
+            {"class", TokenType.Class},
+            {"else", TokenType.Else},
+            {"false", TokenType.False},
+            {"fun", TokenType.Fun},
+            {"for", TokenType.For},
+            {"if", TokenType.If},
+            {"nil", TokenType.Nil},
+            {"print", TokenType.Print},
+            {"return", TokenType.Return},
+            {"super", TokenType.Super},
+            {"this", TokenType.This},
+            {"var", TokenType.Var},
+            {"while", TokenType.While},
+        };
+
 
         public List<Token> ScanTokens()
         {
@@ -130,7 +149,16 @@ namespace CsLox
                 Advance();
             }
 
-            AddToken(TokenType.Identifier);
+            //filter keywords
+            string text = _source.Substring(_start, _current - 1);
+            
+            TokenType realType = TokenType.Undefined;
+            if(_keywordMap.TryGetValue(text, out TokenType t))
+            {
+                realType = t;
+            }
+
+            AddToken(realType);
         }
 
         private bool IsAlaphOrDigit(char c)
