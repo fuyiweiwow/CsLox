@@ -94,9 +94,18 @@ namespace CsLox
                     break;
                 case '"':
                     ScanString();
-                    break;
+                    return;
                 default:
-                    CsLoxController.Instance.Error( _line, $"Unexpected character '{token}'.");
+                    if(char.IsDigit(token))
+                    {
+                        ScanNumber();
+                        return;
+                    }
+                    else
+                    {
+                        CsLoxController.Instance.Error( _line, $"Unexpected character '{token}'.");
+                    }
+                    
                     break;
             }
 
@@ -104,6 +113,31 @@ namespace CsLox
                 return;
 
             AddToken(tt);
+        }
+
+        /// <summary>
+        /// Do scane number like 1.234, exclude things like .1234 or 1234.
+        /// </summary>
+        private void ScanNumber()
+        {
+            while(char.IsDigit(Peek()))
+            {
+                Advance();
+            }
+
+            if(Peek() == '.' && char.IsDigit(PeekNext()))
+            {
+                Advance();
+                while(char.IsDigit(Peek()))
+                {
+                    Advance();
+                }
+            }
+
+            AddToken(TokenType.Number, 
+            Double.TryParse(_source.Substring(_start, _current - 1), out double result) 
+            ? result 
+            : double.NaN);
         }
 
         /// <summary>
@@ -132,6 +166,15 @@ namespace CsLox
             AddToken(TokenType.String, strVal);
         }
 
+        private char PeekNext()
+        {
+            if(_current == _source.Length - 1)
+            {
+                return '\0';
+            }
+
+            return _source[_current + 1];
+        }
 
         private char Peek()
         {
