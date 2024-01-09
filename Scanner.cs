@@ -96,6 +96,41 @@ namespace CsLox
                         }
                         tt = TokenType.Useless;
                     }
+                    else if(CheckNext('*'))
+                    {
+                        /*comment like this, and allow nested*/
+                        var nested = 1;
+                        while(!IsAtEnd())
+                        {
+                            if(Peek() == '/' && PeekNext() == '*')
+                            {
+                                ++nested;
+                                Advance();
+                                Advance();
+                            }
+                            else if(Peek() == '*' && PeekNext() == '/')
+                            {
+                                --nested;
+                                Advance();
+                                Advance();
+                                if(nested == 0)
+                                {
+                                    tt = TokenType.Useless;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                Advance();
+                            }
+                        }
+                        
+                        if(nested != 0)
+                        {
+                            CsLoxController.Instance.Error( _line, $"Unexpected character '{token}'.");
+                            break;
+                        }
+                    }
                     else
                     {
                         tt = TokenType.Slash;
