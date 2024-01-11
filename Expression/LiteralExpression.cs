@@ -4,6 +4,10 @@ namespace CsLox
     {
         object _value = value;
 
+        public override T Accept<T>(IVisitor<T> visitor)
+        {
+            return visitor.VisitLiteralExpression(this);
+        }
     }
 
 
