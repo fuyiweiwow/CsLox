@@ -7,9 +7,14 @@ namespace CsLox
         object? _literal = literal;
         int _line = line;
 
+        public TokenType Type { get => _type; set => _type = value; }
+        public string Lexeme { get => _lexeme; set => _lexeme = value; }
+        public object? Literal { get => _literal; set => _literal = value; }
+        public int Line { get => _line; set => _line = value; }
+
         public override string ToString()
         {
-            return $@"{_type}"" ""{_lexeme}"" ""{_literal}";
+            return $@"{Type}"" ""{Lexeme}"" ""{Literal}";
         }
     }
 
