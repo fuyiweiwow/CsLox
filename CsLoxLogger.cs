@@ -1,9 +1,9 @@
 namespace CsLox
 {
-    public class CsLoxController
+    public class CsLoxLogger
     {
-        private static readonly Lazy<CsLoxController> _instance = new(() => new CsLoxController());
-        public static CsLoxController Instance { get{ return _instance.Value; } }
+        private static readonly Lazy<CsLoxLogger> _instance = new(() => new CsLoxLogger());
+        public static CsLoxLogger Instance { get{ return _instance.Value; } }
 
         public bool HasError { get; set; } = false;
 

@@ -127,7 +127,7 @@ namespace CsLox
                         
                         if(nested != 0)
                         {
-                            CsLoxController.Instance.Error( _line, $"Unexpected character '{token}'.");
+                            CsLoxLogger.Instance.Error( _line, $"Unexpected character '{token}'.");
                             break;
                         }
                     }
@@ -162,7 +162,7 @@ namespace CsLox
                     }
                     else
                     {
-                        CsLoxController.Instance.Error( _line, $"Unexpected character '{token}'.");
+                        CsLoxLogger.Instance.Error( _line, $"Unexpected character '{token}'.");
                     }
                     
                     break;
@@ -254,7 +254,7 @@ namespace CsLox
 
             if(IsAtEnd())
             {
-                CsLoxController.Instance.Error(_line, "Unterminated string.");
+                CsLoxLogger.Instance.Error(_line, "Unterminated string.");
                 return;
             }
 
