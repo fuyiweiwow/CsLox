@@ -67,7 +67,19 @@ namespace CsLox
             }
         }
 
+        private static void RunTestCode()
+        {
+            var expr = new BinaryExpression(
+                new UnaryExpression(
+                    new Token(TokenType.Minus, "-", null, 1),
+                    new LiteralExpression(123)),
+                new Token(TokenType.Star, "*", null, 1),
+                new GroupingExpression(
+                    new LiteralExpression(45.67))
+                );
 
+            Console.WriteLine(new AstPrinter().Print(expr));
+        }
 
 
     }

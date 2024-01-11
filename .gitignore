@@ -11,3 +11,17 @@ obj/Debug/net8.0/CsLox.AssemblyInfoInputs.cache
 obj/Debug/net8.0/CsLox.assets.cache
 obj/Debug/net8.0/CsLox.GeneratedMSBuildEditorConfig.editorconfig
 obj/Debug/net8.0/CsLox.GlobalUsings.g.cs
+bin/Debug/net8.0/CsLox.deps.json
+bin/Debug/net8.0/CsLox.dll
+bin/Debug/net8.0/CsLox.exe
+bin/Debug/net8.0/CsLox.pdb
+bin/Debug/net8.0/CsLox.runtimeconfig.json
+obj/Debug/net8.0/apphost.exe
+obj/Debug/net8.0/CsLox.csproj.CoreCompileInputs.cache
+obj/Debug/net8.0/CsLox.csproj.FileListAbsolute.txt
+obj/Debug/net8.0/CsLox.dll
+obj/Debug/net8.0/CsLox.genruntimeconfig.cache
+obj/Debug/net8.0/CsLox.pdb
+obj/Debug/net8.0/CsLox.sourcelink.json
+obj/Debug/net8.0/ref/CsLox.dll
+obj/Debug/net8.0/refint/CsLox.dll
