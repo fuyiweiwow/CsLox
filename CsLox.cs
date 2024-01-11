@@ -30,7 +30,7 @@ namespace CsLox
         {
             byte[] bytes = File.ReadAllBytes(Path.GetFullPath(path));
             Run(Encoding.Default.GetString(bytes));
-            if (CsLoxController.Instance.HasError) 
+            if (CsLoxLogger.Instance.HasError) 
             {
                 Environment.Exit(65);
             }
@@ -48,7 +48,7 @@ namespace CsLox
                 if(line is null)
                     break;
                 Run(line);
-                CsLoxController.Instance.HasError = false;
+                CsLoxLogger.Instance.HasError = false;
             }
         }
 
