@@ -2,7 +2,7 @@ using System.Text;
 
 namespace CsLox
 {
-    public class AstPrinter : IVisitor<string>
+    public class AstPrinter : IVisitor<string>, IAstPrinter
     {
         static readonly string _groupStr = "group";
         static readonly string _nilStr = "nil";
