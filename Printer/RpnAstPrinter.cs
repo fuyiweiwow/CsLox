@@ -1,5 +1,8 @@
 namespace CsLox
 {
+    /// <summary>
+    /// TODO: complete RpnAstPrinter so that it can print structure in RPN format
+    /// </summary>
     public class RpnAstPrinter : IVisitor<string>, IAstPrinter
     {
         public string Print(Expression expr)
