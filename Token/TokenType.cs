@@ -37,6 +37,7 @@ namespace CsLox
         Class,
         Else,
         False,
+        True,
         Fun,
         For,
         If,
