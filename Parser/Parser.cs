@@ -121,7 +121,12 @@ namespace CsLox
 
         }
 
-
+        /// <summary>
+        /// Refactor same part during parsing
+        /// </summary>
+        /// <param name="lower"></param>
+        /// <param name="types"></param>
+        /// <returns></returns>
         private Expression RecursiveDescentParsing(Func<Expression> lower, params TokenType[] types)
         {
              var expr = lower();
@@ -160,6 +165,11 @@ namespace CsLox
             return false;
         }
 
+        /// <summary>
+        /// Check if the tokenType meet requirements
+        /// </summary>
+        /// <param name="typ"></param>
+        /// <returns></returns>
         private bool Check(TokenType typ)
         {
             if(IsAtEnd())
@@ -170,7 +180,10 @@ namespace CsLox
             return _tokens[_current].Type == typ;
         }
         
-
+        /// <summary>
+        /// Consume current token and return the next
+        /// </summary>
+        /// <returns></returns>
         private Token Advance()
         {
             if(!IsAtEnd())
@@ -181,23 +194,56 @@ namespace CsLox
             return Previous();
         }
 
+        /// <summary>
+        /// Get the previous token
+        /// </summary>
+        /// <returns></returns>
         private Token Previous()
         {
             return _tokens[_current - 1];
         }
 
+        /// <summary>
+        /// Get the current token and not consume it
+        /// </summary>
+        /// <returns></returns>
         private Token Peek()
         {
             return _tokens[_current];
         }
 
+        /// <summary>
+        /// Consume the exact token and raise an error
+        /// </summary>
+        /// <param name="tokenType"></param>
+        /// <param name="errorMessage"></param>
         private void Consume(TokenType tokenType, string errorMessage)
         {
+            if(Check(tokenType))
+            {
+                Advance();
+                return;
+            }
 
+            throw CreatePaserException(Peek(), errorMessage);
         }
 
+        /// <summary>
+        /// create a parse exception
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        private PaserException CreatePaserException(Token token, string errorMessage)
+        {
+            CsLoxLogger.Instance.Error(token, errorMessage);
+            return new PaserException();
+        }
 
-
+        /// <summary>
+        /// Check if is at the end of the tokens
+        /// </summary>
+        /// <returns></returns>
         private bool IsAtEnd()
         {
             return _current + 1>= _tokens.Count;
