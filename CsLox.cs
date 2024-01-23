@@ -61,10 +61,15 @@ namespace CsLox
             var scanner = new Scanner(source);
             List<Token> tokens = scanner.ScanTokens();
 
-            foreach(var token in tokens)
+            var parser = new Parser(tokens);
+            var expression = parser.Parse();
+
+            if(CsLoxLogger.Instance.HasError)
             {
-                Console.WriteLine(token);
+                return;
             }
+
+            Console.WriteLine(new AstPrinter().Print(expression));
         }
 
         private static void RunTestCode()

@@ -7,8 +7,13 @@ namespace CsLox
         static readonly string _groupStr = "group";
         static readonly string _nilStr = "nil";
 
-        public string Print(Expression expr)
+        public string Print(Expression? expr)
         {
+            if(expr is null)
+            {
+                return string.Empty;
+            }
+            
             return expr.Accept(this);
         }
 

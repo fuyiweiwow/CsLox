@@ -15,6 +15,20 @@ namespace CsLox
         readonly List<Token> _tokens = tokens;
         int _current = 0;
 
+        public Expression? Parse()
+        {
+            try
+            {
+                return Expression();
+            }
+            catch (PaserException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+
         private Expression Expression()
         {
             return Equality();
@@ -119,7 +133,44 @@ namespace CsLox
                 return new GroupingExpression(expr);
             }
 
+            throw CreatePaserException(Peek(), "Expect expression.");
         }
+
+        /// <summary>
+        /// Synchronize the parser behaviour aften error thrown
+        /// </summary>
+
+        private void Synchronize()
+        {
+            Advance();
+
+            while(!IsAtEnd())
+            {
+                if(Previous().Type == TokenType.SemiColon)
+                {
+                    return;
+                }
+
+                switch(Peek().Type)
+                {
+                    case TokenType.Class:
+                    case TokenType.Fun:
+                    case TokenType.Var:
+                    case TokenType.For:
+                    case TokenType.If:
+                    case TokenType.While:
+                    case TokenType.Print:
+                    case TokenType.Return:
+                        return;
+                }
+
+                Advance();
+            }
+
+
+
+        }
+
 
         /// <summary>
         /// Refactor same part during parsing
